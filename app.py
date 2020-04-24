@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
+model = pickle.load(open('C:/Users/mahsa/OneDrive/Desktop/Machine_learning_API/Heroku-Demo-master/Heroku-Demo-master/heart1.pkl', 'rb'))
 
 @app.route('/')
 def home():
@@ -20,7 +20,13 @@ def predict():
 
     output = round(prediction[0], 2)
 
-    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
+    def heartattack(output):
+        if output == 0:
+            return 'You have high chance of heart attack'
+        else:
+            return 'You do not have heart disease!'
+
+    return render_template('index.html', prediction_text=heartattack(output))
 
 
 if __name__ == "__main__":
